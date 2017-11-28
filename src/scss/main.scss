@@ -1,0 +1,26 @@
+body {
+  background: whitesmoke;
+}
+.hello-form {
+    p {
+        color: blue;
+    }
+}
+
+ul {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.margin-l-r {
+  margin-left: -18px;
+  margin-right: -10px;
+}
+.padding-10 {
+  padding: 10px 0px 0px 0px;
+}
+
+ul.side-nav li {
+   padding: 10px;
+   border-bottom: 2px solid skyblue;
+}

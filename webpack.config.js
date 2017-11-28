@@ -10,10 +10,9 @@ var path = require('path');
 module.exports = {
   context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : false,
-  entry: "./js/client.js",
+  entry: "./js/main.js",
   module: {
-    loaders: [
-      {
+    loaders: [{
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
@@ -21,52 +20,94 @@ module.exports = {
           presets: ['react', 'es2015', 'stage-0'],
           plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties'],
         }
-      },
-      {
-          test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
-          loader: "file-loader",
-          options: {
-            name: '[path][name].[ext]',
-            //outputPath: '',
-            emitFile: true
-          }
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
-      },
-      {
-        test: /\.json$/,
+      }, {
+        test: /\.(jpe?g|gif|eot|png|svg|woff|woff2|ttf|wav|mp3)$/,
+        //exclude: /node_modules/,
         loader: "file-loader",
         options: {
-           name: '[path][name].[ext]',
-           emitFile: true
+          name: '[path][name].[ext]',
+          //outputPath: '',
+          emitFile: true
         }
+      },
+      /*{
+            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: "url-loader?limit=10000&mimetype=application/font-woff"
+      },*/
+      {
+        test: /\.css$/,
+        loader: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.scss$/,
+        //exclude: /node_modules/,
+        loader: ExtractTextPlugin.extract('css-loader!sass-loader')
       }
+      //,
+      // {
+      //   test: /\.json$/,
+      //   loader: "file-loader",
+      //   options: {
+      //      name: '[path][name].[ext]',
+      //      emitFile: true
+      //   }
+      // }
     ]
   },
   output: {
     path: path.resolve('dist'),
-    filename: "client.min.js"
+    filename: "main.min.js"
   },
-  plugins: debug ? [new HtmlWebpackPlugin({template: 'index.html', filename: 'index.html'}), new ExtractTextPlugin('[name].css'), new CopyWebpackPlugin([
-            { from: 'json' }])] : [
+  plugins: debug ? [new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
+    }), new HtmlWebpackPlugin({
+      template: 'index.html',
+      filename: 'index.html'
+    }), new ExtractTextPlugin('[name].css', {
+      allChunks: true
+    })
+    /*, new CopyWebpackPlugin([
+                { from: 'json' }])*/
+  ] : [
     // new webpack.optimize.DedupePlugin(),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
-    new HtmlWebpackPlugin({hash: true, cache: false, template: 'index.html', filename: 'index.html', minify: {minifyJS: true, minifyCSS: true, removeComments: true, collapseWhitespace: true}}),
-    new ExtractTextPlugin('[name].min.css'),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: false,
+      sourcemap: false
+    }),
+    new HtmlWebpackPlugin({
+      hash: true,
+      cache: false,
+      template: 'index.html',
+      filename: 'index.html',
+      minify: {
+        minifyJS: true,
+        minifyCSS: true,
+        removeComments: true,
+        collapseWhitespace: true
+      }
+    }),
+    new ExtractTextPlugin('[name].min.css', {
+      allChunks: true
+    }),
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: {removeAll: true } },
+      cssProcessorOptions: {
+        discardComments: {
+          removeAll: true
+        }
+      },
       canPrint: true
-    }),
-    new CopyWebpackPlugin([
-            { from: 'json' }
-    ])
+    })
+    /*,
+        new CopyWebpackPlugin([
+                { from: 'json' }
+        ])*/
   ],
 };
