@@ -1,27 +1,77 @@
-body {
-  background: whitesmoke;
+@import "colors.scss";
+
+body, html, #root > #wrapper {
+  background: $white !important;
   font-family: 'Inconsolata', monospace !important;
-}
-.hello-form {
-    p {
-        color: blue;
-    }
+  margin: 0;
+  padding: 0;
+  height: 100% !important;
 }
 
-ul {
-  list-style-type: none;
+section.side-nav {
+  nav {
+    a {
+      display: block;
+      font-size: 20px;
+      color: $white-smoke;
+      padding: 3px 0px 3px 20px;
+      line-height: 50px;
+      text-decoration: none;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+    a:hover {
+      background: #1E824C;
+      transition: 0.3s ease;
+      border-left: 5px solid #D35400;
+      font-size: 22px;
+    }
+    /* padding: 0px 0px 0 10px; */
+    /* margin-top: 10px; */
+  }
+  width: 250px;
+  overflow-x: hidden;
+  height: inherit;
+  background: $mid-dark;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  opacity: 0.7;
+  transition: 0.5s ease-in;
+}
+
+section.main-view {
+  button#show {
+    display: block;
+    transition: 0.5s ease-in;
+  }
+  button#collapse {
+    display: none;
+    transition: 0.5s ease-in;
+  }
+  left: 250px;
+  position: absolute;
+  width: 100%;
+  transition: 0.5s ease-in;
+  padding: 10px;
+}
+
+.left0 {
+  left: 0 !important;
+}
+
+.width0 {
+  width: 0 !important;
+} 
+
+i {
+  color: $white-smoke;
   cursor: pointer;
 }
 
-.margin-l-r {
-  margin-left: -18px;
-  margin-right: -10px;
-}
-.padding-10 {
-  padding: 10px 0px 0px 0px;
-}
-
-ul.side-nav li {
-   padding: 10px;
-   border-bottom: 2px solid skyblue;
+i.whiteI {
+  position: relative;
+  left: -2px;
+  z-index: 1;
 }
