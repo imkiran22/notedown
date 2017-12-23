@@ -1,8 +1,8 @@
 export default function reducer(state={}, action) {
 
     switch (action.type) {
-      case "FETCH_REMINDER": {
-        return {...state, fetching: true}
+      case "FETCH_REMINDERS_FULFILLED": {
+        return action.payload.data;
       }
     }
 

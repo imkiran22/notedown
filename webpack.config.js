@@ -11,6 +11,9 @@ module.exports = {
   context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : false,
   entry: "./js/main.js",
+  devServer: {
+    historyApiFallback: true
+  },
   module: {
     loaders: [{
         test: /\.jsx?$/,
