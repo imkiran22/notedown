@@ -46,15 +46,15 @@ module.exports = {
         //exclude: /node_modules/,
         loader: ExtractTextPlugin.extract('css-loader!sass-loader')
       }
-      //,
-      // {
-      //   test: /\.json$/,
-      //   loader: "file-loader",
-      //   options: {
-      //      name: '[path][name].[ext]',
-      //      emitFile: true
-      //   }
-      // }
+      ,
+      {
+        test: /\.json$/,
+        loader: "file-loader",
+        options: {
+           name: '[path][name].[ext]',
+           emitFile: true
+        }
+      }
     ]
   },
   output: {
@@ -70,8 +70,8 @@ module.exports = {
     }), new ExtractTextPlugin('[name].css', {
       allChunks: true
     })
-    /*, new CopyWebpackPlugin([
-                { from: 'json' }])*/
+    , new CopyWebpackPlugin([
+                { from: 'json' }])
   ] : [
     // new webpack.optimize.DedupePlugin(),
     new webpack.ProvidePlugin({
@@ -108,9 +108,9 @@ module.exports = {
       },
       canPrint: true
     })
-    /*,
+    ,
         new CopyWebpackPlugin([
                 { from: 'json' }
-        ])*/
+        ])
   ],
 };
