@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function fetchReminders() {
-	const URL = 'http://reduxblog.herokuapp.com/api/posts';
+	const URL = 'reminderList.json';
 	return {
 		type: 'FETCH_REMINDERS',
 		payload: axios.get(URL)
