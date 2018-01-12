@@ -19,32 +19,12 @@ class Reminder extends React.Component {
     componentWillReceiveProps(next) {
     	//console.log(next);
     	this.setState({
-    		reminder: next.reminder.list || []
+    		reminder: next.reminder || []
     	})
     }
 
-    
-    // setPollingToDisplayReminder() {
-    //    this.timeDelay = setInterval(() => {
-    //       if (this.state.reminder && this.state.reminder.length) {
-    //       	 this.state.reminder.forEach((obj) => {
-    //       	 	let lastCutoffTime = new Date(obj.lastCutoffTime).valueOf();
-    //       	 	let currentTime = new Date().valueOf();
-    //       	 	let diff = lastCutoffTime - currentTime;
-    //       	 	if (diff > -60000 && diff < 60000) {
-          	 		
-    //       	 	}
-    //       	 })
-    //       }
-    //    }, 10000000);
-
-    // }
-
-    // componentWillMount() {
-    // 	this.setPollingToDisplayReminder();
-    // }
 	render() {
-		if (this.state.reminder && this.state.reminder.length) {
+		if (this.state.reminder) {
 			return (
 			<section class="reminder-container">
 			     <Link to="/reminders/add"><button class="btn btn-default">Add Reminder</button></Link>
@@ -57,9 +37,6 @@ class Reminder extends React.Component {
              </section>
 		   )
 		}
-		return (
-           <h1>Loading...</h1>
-		)
 		
 	}
 }
