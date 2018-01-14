@@ -28,7 +28,7 @@ class CreateEditReminder extends React.Component {
 
    addMode() {
      this.setState({
-	        reminderTitle: this.reminderId == 'add' ? 'ADD' : 'EDIT',
+	      reminderTitle: this.reminderId == 'add' ? 'ADD' : 'EDIT',
 	   	 	lastCutoffTime: moment(),
 	   	 	title: '',
 	     	desc: ''
@@ -36,7 +36,7 @@ class CreateEditReminder extends React.Component {
    }
 
    editMode() {
-	    const reminderObj = this.props.reminder.list.filter((obj) => {
+	    const reminderObj = this.props.reminder.filter((obj) => {
 	   	 	return obj.id == this.reminderId;
 	   	 })[0];
 	   	if (reminderObj && Object.keys(reminderObj).length) {
@@ -91,7 +91,7 @@ class CreateEditReminder extends React.Component {
      alert('ADDED IN LOCAL STORAGE');
      this.addMode();
      this.props.history.push('/reminders');
-     this.props.fetchReminders();
+     //this.props.fetchReminders();
    }
 
    render() {

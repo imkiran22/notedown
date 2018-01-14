@@ -14,7 +14,7 @@ export function addReminders(obj) {
     data.push(obj);
     localStorage.setItem('reminders', JSON.stringify(data));
     return {
-		type: 'ADD_REMINDERS',
+		type: 'FETCH_REMINDERS',
 		payload: data
 	}
 }
