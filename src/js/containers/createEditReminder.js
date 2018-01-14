@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import { fetchReminders } from '../actions';
+import { fetchReminders, addReminders } from '../actions';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -28,7 +28,7 @@ class CreateEditReminder extends React.Component {
 
    addMode() {
      this.setState({
-	        reminderTitle: this.reminderId == 'add' ? 'ADD' : 'EDIT',
+	      reminderTitle: this.reminderId == 'add' ? 'ADD' : 'EDIT',
 	   	 	lastCutoffTime: moment(),
 	   	 	title: '',
 	     	desc: ''
@@ -36,7 +36,7 @@ class CreateEditReminder extends React.Component {
    }
 
    editMode() {
-	    const reminderObj = this.props.reminder.list.filter((obj) => {
+	    const reminderObj = this.props.reminder.filter((obj) => {
 	   	 	return obj.id == this.reminderId;
 	   	 })[0];
 	   	if (reminderObj && Object.keys(reminderObj).length) {
@@ -46,7 +46,6 @@ class CreateEditReminder extends React.Component {
 		     	desc: reminderObj.desc || ''
 	   	 	})
 	   	 }
-	    //console.log(this.props.reminder);
    }
 
    triggerRouteChange(nextState) {
@@ -59,11 +58,15 @@ class CreateEditReminder extends React.Component {
    	 }
    }
 
-   handleChange(ev) {
-   	 console.log(ev);
-   	 this.setState({
-   	 	lastCutoffTime: ev
-   	 })
+   handleChange(key, ev) {
+   	 //console.log(ev);
+   	 var obj = {};
+   	 if (key ===  'lastCutoffTime') {
+   	 	obj[key] = ev;
+   	 } else {
+   	 	obj[key] = ev.target && ev.target.value;
+   	 }
+   	 this.setState(obj);
    }
 
    componentWillReceiveProps(nextState, prevState) {
@@ -73,41 +76,50 @@ class CreateEditReminder extends React.Component {
    	 }
    }
 
-   // componentDidUpdate() {
-   // 	 console.log(this.props.reminder);
-   // 	 if (this.reminderId == 'add') { 
-   //     this.addMode();
-   // 	 } else {
-   // 	   this.editMode()
-   // 	 }
-   // }
+   handleSubmit(ev) {
+     ev.preventDefault();
+     console.log(this.state);
+     let date = new Date();
+     let obj = {
+        "id": date.valueOf(),
+        "title": this.state.title,
+        "desc": this.state.desc,
+        "lastCutoffTime": this.state.lastCutoffTime.toString(),
+        "createdTime": date.toString()
+     };
+     this.props.addReminders(obj);
+     alert('ADDED IN LOCAL STORAGE');
+     this.addMode();
+     this.props.history.push('/reminders');
+     //this.props.fetchReminders();
+   }
 
    render() {
      return (
         <article class="create-reminder">
 	        <h1>{this.state && this.state.reminderTitle ? this.state.reminderTitle : 'ADD'} REMINDER</h1>
-	        <form name="create-edit-reminder">
+	        <form name="create-edit-reminder" onSubmit={this.handleSubmit.bind(this)}>
 			    <div class="form-group">
 			      <label for="title">Title:</label>
-			      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value={this.state.title}/>
+			      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value={this.state.title} onChange={this.handleChange.bind(this, 'title')} required/>
 			    </div>
 			    <div class="form-group">
 			      <label for="desc">Desc:</label>
-			      <textarea class="form-control" id="desc" placeholder="Enter description" name="desc" value={this.state.desc}/>
+			      <textarea class="form-control" id="desc" placeholder="Enter description" name="desc" value={this.state.desc} onChange={this.handleChange.bind(this, 'desc')} required/>
 			    </div>
 			    <div class="form-group">
 			      <label>Select a time</label>
-                   <DatePicker
+                   <DatePicker required 
                         className="form-control width-200" 
 					    selected={this.state && this.state.lastCutoffTime ? this.state.lastCutoffTime : moment()}
-					    onChange={this.handleChange.bind(this)}
+					    onChange={this.handleChange.bind(this, 'lastCutoffTime')}
 					    showTimeSelect
 					    timeFormat="HH:mm:ss"
 					    timeIntervals={1}
 					    dateFormat="LLL"
 					/>
 			    </div>
-			    <button type="submit" class="btn btn-default">Submit</button>
+			    <button class="btn btn-default">Submit</button>
 	        </form>
         </article>
      );
@@ -120,4 +132,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {fetchReminders})(CreateEditReminder)
+export default connect(mapStateToProps, {fetchReminders, addReminders})(CreateEditReminder)

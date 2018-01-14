@@ -9,6 +9,10 @@ body, html, #root > #wrapper {
   height: 100% !important;
 }
 
+
+.active {
+  background: red;
+}
 section.side-nav {
   nav {
     a {
@@ -30,7 +34,7 @@ section.side-nav {
     /* padding: 0px 0px 0 10px; */
     /* margin-top: 10px; */
   }
-  width: 25%;
+  width: 15%;
   overflow-x: hidden;
   height: 100%;
   background: $mid-dark;
@@ -56,11 +60,10 @@ section.main-view {
     border-radius: 0;
   }
   position: absolute;
-  width: 75%;
-  left: 25%;
+  width: 85%;
+  left: 15%;
   transition: 0.5s ease-in;
   padding: 10px;
-  background: linear-gradient(#ECF0F1, #F7CA18);
   height: 100%;
 }
 
