@@ -26,14 +26,11 @@ class Reminder extends React.Component {
 
     onRouteChanged() {
        const location = this.props.location.pathname;
-       const DOM = document.querySelector('article.reminders-section');
        if (location === '/reminders/add' || location.startsWith('/reminders/')) {
-       	  DOM.style.display = 'none';
        	  this.setState({
        	  	showAddBtn: false
        	  })
        } else {
-       	  DOM.style.display = 'block';
        	  this.setState({
        	  	showAddBtn: true
        	  })
@@ -62,7 +59,7 @@ class Reminder extends React.Component {
 			  <Link to="/reminders/add"><button class="btn btn-sm btn-info">ADD REMINDER</button></Link>
 			</p>
 			<br/>
-			    <article class="reminders-section">
+			    <article class={this.state.showAddBtn ? 'reminders-section' : 'reminders-section hide'}>
 		                  {this.state.reminder.map((obj, index) => {
 		                  	return (
                                     <div class="well" key={index}>
