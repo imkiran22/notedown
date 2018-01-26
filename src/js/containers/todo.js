@@ -12,7 +12,11 @@ export default class Todo extends React.Component {
 	}
 	render() {
 		return (
-           <h1 class="jumbotron">Welcome to Todo Page</h1>
+           <section class="todo module">
+              <div class="alert alert-info reset">
+                 <strong class="rem">TODO</strong>
+              </div>
+            </section>
 		)
 	}
 } 

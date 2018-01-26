@@ -12,7 +12,11 @@ export default class Status extends React.Component {
 	}
 	render() {
 		return (
-           <h1 class="jumbotron">Welcome to Status Page</h1>
+			<section class="status">
+           <div class="alert alert-info reset">
+                 <strong class="rem">STATUS</strong>
+            </div>
+            </section>
 		)
 	}
 } 

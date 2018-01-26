@@ -12,7 +12,11 @@ export default class Notes extends React.Component {
 	}
 	render() {
 		return (
-           <h1 class="jumbotron">Welcome to Notes Page</h1>
+			<section class="notes module">
+              <div class="alert alert-info reset">
+                 <strong class="rem">NOTES</strong>
+              </div>
+            </section>
 		)
 	}
 } 

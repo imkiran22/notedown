@@ -27,9 +27,7 @@ export default class App extends React.Component {
       }
       // Let's check whether notification permissions have already been granted
       else if (Notification.permission === "granted") {
-        // var notification = new Notification(obj.title, {body: obj.desc});
-        // notification.title = obj.title;
-        // notification.body = obj.desc;
+        
       }
       // Otherwise, we need to ask the user for permission
       else if (Notification.permission !== "denied") {
@@ -37,7 +35,7 @@ export default class App extends React.Component {
           // If the user accepts, let's create a notification
           if (permission === "granted") {
             console.log(Notification.permission);
-           // var notification = new Notification("Hi there!");
+            // var notification = new Notification("Hi there!");
             // var notification = new Notification(obj.title, {body: obj.desc});
             // notification.title = obj.title;
             // notification.body = obj.desc;
@@ -79,15 +77,11 @@ export default class App extends React.Component {
 
     onRouteChanged() {
        let location = this.props.location.pathname;
-       if (location.startsWith('/reminders')) {
+       if (location.startsWith('/reminders') || location === '/') {
           location = '/reminders';
-       } /*else {
-          location = location.substr(1, location.length-1);
-       }*/
-       console.log('LOCATION', location);
+       }
        const DOM = $('section.side-nav');
        DOM.find('nav a').removeClass('active');
-       //console.log($);
        DOM.find(`nav a[href='${location}']`).addClass('active');
     }
 
@@ -100,7 +94,7 @@ export default class App extends React.Component {
                let lastCutoffTime = new Date(obj.lastCutoffTime).valueOf();
                let currentTime = new Date().valueOf();
                let diff = currentTime - lastCutoffTime;
-               if (/*diff > -60000 && diff < 60000*/ diff === 0) {
+               if (diff <= 60000 || diff === 0) {
                   if (Notification.permission === "granted") {
                     var notification = new Notification(obj.title, {body: obj.desc});
                     array.splice(index, 1);

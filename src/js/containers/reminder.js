@@ -13,7 +13,7 @@ class Reminder extends React.Component {
 	//timeDelay = null;
 	constructor(props) {
 		super(props);
-		this.state = {reminder: []};
+		this.state = {reminder: [], showAddBtn: true};
 		//console.log(this.props);
 		this.props.fetchReminders();
 	}
@@ -28,9 +28,15 @@ class Reminder extends React.Component {
        const location = this.props.location.pathname;
        const DOM = document.querySelector('article.reminders-section');
        if (location === '/reminders/add' || location.startsWith('/reminders/')) {
-       	  	 DOM.style.display = 'none';
+       	  DOM.style.display = 'none';
+       	  this.setState({
+       	  	showAddBtn: false
+       	  })
        } else {
        	  DOM.style.display = 'block';
+       	  this.setState({
+       	  	showAddBtn: true
+       	  })
        }
     }
 
@@ -49,14 +55,21 @@ class Reminder extends React.Component {
 		if (this.state.reminder) {
 			return (
 			<section class="reminder-container">
-			<h1 class="jumbotron">Welcome to Reminder's Page</h1>
-			    <article class="reminders-section">  
-				     <Link to="/reminders/add"><button class="btn btn-default">Add Reminder</button></Link>
-		             <ul class="list-group">
+			<div class="alert alert-info reset">
+                 <strong class="rem">REMINDERS</strong>
+            </div>
+			<p class={this.state.showAddBtn ? 'add' : 'add hide'}>
+			  <Link to="/reminders/add"><button class="btn btn-sm btn-info">ADD REMINDER</button></Link>
+			</p>
+			<br/>
+			    <article class="reminders-section">
 		                  {this.state.reminder.map((obj, index) => {
-		                  	return <Link to={`/reminders/${obj.id}`} class="list-group-item" key={index}>{obj.title}</Link>
+		                  	return (
+                                    <div class="well" key={index}>
+									  <Link to={`/reminders/${obj.id}`}><p>{obj.title}</p></Link>
+									</div>
+		                  		)
 		                  })}
-		             </ul>
 	             </article>
                  <Route exact path="/reminders/:id" component={CreateEditReminder}></Route>
              </section>
