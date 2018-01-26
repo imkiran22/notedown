@@ -6,6 +6,7 @@ import Todo from './containers/todo';
 import Status from './containers/status';
 import Notes from './containers/notes';
 import store from './Store';
+import Alert from './common/Alert';
 import $ from 'jquery';
 @withRouter
 export default class App extends React.Component {
@@ -112,6 +113,7 @@ export default class App extends React.Component {
    render() {
      return (
       <div id="wrapper">
+        <Alert/>
         <section class="side-nav">
            <a id="show" class="pull-right" onClick={this.collapse.bind(this, false)}><i class="fa fa-window-close whiteI"></i></a>
            <nav>

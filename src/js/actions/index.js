@@ -18,3 +18,10 @@ export function addReminders(obj) {
 		payload: data
 	}
 }
+
+export function displayAlert(message) {
+	return {
+		type: 'DISPLAY_ALERT',
+		payload: message
+	}
+}

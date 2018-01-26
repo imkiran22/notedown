@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import { fetchReminders, addReminders } from '../actions';
+import { fetchReminders, addReminders, displayAlert } from '../actions';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -88,10 +88,9 @@ class CreateEditReminder extends React.Component {
         "createdTime": date.toString()
      };
      this.props.addReminders(obj);
-     alert('ADDED IN LOCAL STORAGE');
+     this.props.displayAlert({message: 'ADDED IN LOCAL STORAGE', statusCode: 200, type: 'info'});
      this.addMode();
      this.props.history.push('/reminders');
-     //this.props.fetchReminders();
    }
 
    render() {
@@ -132,4 +131,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {fetchReminders, addReminders})(CreateEditReminder)
+export default connect(mapStateToProps, {fetchReminders, addReminders, displayAlert})(CreateEditReminder)
