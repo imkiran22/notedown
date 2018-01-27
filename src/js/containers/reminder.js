@@ -81,9 +81,7 @@ function mapStateToProps(state) {
   	reminder: state.reminderReducer
   }
 }
-// const mapDispatchToProps = dispatch => bindActionCreators({
-//    //changePage: () => push('/about-us')
-// }, dispatch)
+
 
 export default connect(
   mapStateToProps, 

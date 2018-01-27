@@ -14,24 +14,26 @@ class Alert extends React.Component {
 	}
 
 	componentWillReceiveProps(nextState, prevState) {
-      this.setState({
-      	showAlert: true,
-      	message: nextState.alert.message,
-      	type: nextState.alert.type
+    if (nextState.alert && nextState.alert.statusCode == 200) {
+        this.setState({
+        showAlert: true,
+        message: nextState.alert.message,
+        type: nextState.alert.type
       })
 
       setTimeout(() => {
-      	this.setState({
-      	  showAlert: false,
-      	  message: '',
-      	  type: ''
-      	})
-      }, 3000);
+        this.setState({
+          showAlert: false,
+          message: '',
+          type: ''
+        })
+      }, 5000);
+    }
 	} 
 
 	render() {
 		return (
-            <div class={this.state.showAlert ? `alert alert-${this.state.type} alert-res` : `alert alert-${this.state.type} alert-res hide`}>
+            <div class={this.state.showAlert ? `alert alert-${this.state.type} alert-res alert-animate animated lightSpeedIn` : `alert alert-${this.state.type} alert-res alert-animate hide`}>
               <strong>Success!</strong> {this.state.message}
             </div>
 		)

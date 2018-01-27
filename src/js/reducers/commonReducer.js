@@ -4,6 +4,9 @@ export default function reducer(state={}, action) {
       case "DISPLAY_ALERT": {
         return action.payload;
       }
+      case "PLAY_AUDIO": {
+      	 return action.payload;
+      }
     }
 
     return state;

@@ -8,6 +8,8 @@ import Notes from './containers/notes';
 import store from './Store';
 import Alert from './common/Alert';
 import $ from 'jquery';
+import Audio from './common/Audio';
+import {playAudio} from './actions';
 @withRouter
 export default class App extends React.Component {
    timeDelay = null;
@@ -15,6 +17,7 @@ export default class App extends React.Component {
      super(props);
      this.notifyMe();
      console.log('STORE', store.getState());
+     this.state = {expand: false};
      //store.dispatch();
      // store.subscribe(function(state) {
      //    console.log('STATE', state);
@@ -50,19 +53,26 @@ export default class App extends React.Component {
    collapse(bool) {
      const mainView = document.querySelector('section.main-view');
      const sideNav = document.querySelector('section.side-nav');
-     const collapseBtn = document.getElementById('collapse');
+     const anchor = $(sideNav).find('nav a');
+     //const collapseBtn = document.getElementById('collapse');
 
-     if (!bool) {
+     this.setState({
+        expand:bool
+     })
+
+     if (bool) {
        sideNav.className = sideNav.className + ' width0';
        mainView.className = mainView.className + ' left0';
+       anchor.addClass('reset');
        mainView.style.width = '100%';
-       collapseBtn.style.display = 'block';
+       //collapseBtn.style.display = 'block';
        return;
      } 
      sideNav.className = sideNav.className.replace('width0', '');
      mainView.className = mainView.className.replace('left0', '');
-     mainView.style.width = '75%';
-     collapseBtn.style.display = 'none';
+     anchor.removeClass('reset');
+     mainView.style.width = '85%';
+     //collapseBtn.style.display = 'none';
    }
 
    componentDidMount() {
@@ -95,9 +105,10 @@ export default class App extends React.Component {
                let lastCutoffTime = new Date(obj.lastCutoffTime).valueOf();
                let currentTime = new Date().valueOf();
                let diff = currentTime - lastCutoffTime;
-               if (diff <= 60000 || diff === 0) {
+               if (diff >= 0 && diff <= 60000) {
                   if (Notification.permission === "granted") {
                     var notification = new Notification(obj.title, {body: obj.desc});
+                    store.dispatch(playAudio({type: 'PLAY_AUDIO', payload: true}));
                     array.splice(index, 1);
                   }
                }
@@ -114,8 +125,9 @@ export default class App extends React.Component {
      return (
       <div id="wrapper">
         <Alert/>
+        <Audio/>
         <section class="side-nav">
-           <a id="show" class="pull-right" onClick={this.collapse.bind(this, false)}><i class="fa fa-window-close whiteI"></i></a>
+           <a id="show" class="pull-right" onClick={this.collapse.bind(this, this.state.expand ? false : true)}><i class={this.state.expand ? "fa fa-expand whiteI" : "fa fa-window-close whiteI"}></i></a>
            <nav>
             <Link to="/notes">Notes</Link>
             <Link to="/reminders">Reminders</Link>
@@ -124,7 +136,6 @@ export default class App extends React.Component {
           </nav>
         </section>
         <section class="main-view">
-          <button id="collapse" class="btn btn-sm btn-danger" onClick={this.collapse.bind(this, true)}><span class="glyphicon glyphicon-menu-hamburger"></span></button>
           <main>
           <Switch>
            <Route exact path="/" component={Reminder}></Route>

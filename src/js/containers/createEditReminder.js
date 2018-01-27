@@ -88,7 +88,7 @@ class CreateEditReminder extends React.Component {
         "createdTime": date.toString()
      };
      this.props.addReminders(obj);
-     this.props.displayAlert({message: 'ADDED IN LOCAL STORAGE', statusCode: 200, type: 'info'});
+     this.props.displayAlert({message: 'ADDED IN LOCAL STORAGE', statusCode: 200, type: 'success'});
      this.addMode();
      this.props.history.push('/reminders');
    }

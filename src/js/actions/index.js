@@ -25,3 +25,10 @@ export function displayAlert(message) {
 		payload: message
 	}
 }
+
+export function playAudio() {
+	return {
+		type: 'PLAY_AUDIO',
+		payload: true
+	}
+}
