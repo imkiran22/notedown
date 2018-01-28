@@ -10,7 +10,7 @@ var path = require('path');
 module.exports = {
   context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : false,
-  entry: "./js/main.js",
+  entry: ["babel-polyfill", "./js/main.js"],
   devServer: {
     historyApiFallback: true
   },
@@ -58,7 +58,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve(debug ? 'dist' : 'prod'),
     filename: "main.min.js"
   },
   plugins: debug ? [new webpack.ProvidePlugin({
