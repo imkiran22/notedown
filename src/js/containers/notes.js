@@ -13,7 +13,7 @@ export default class Notes extends React.Component {
 	render() {
 		return (
 			<section class="notes module">
-              <div class="alert alert-info reset">
+              <div class="alert alert-info reset alert-background">
                  <strong class="rem">NOTES</strong>
               </div>
             </section>

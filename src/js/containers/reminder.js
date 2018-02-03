@@ -52,7 +52,7 @@ class Reminder extends React.Component {
 		if (this.state.reminder) {
 			return (
 			<section class="reminder-container">
-			<div class="alert alert-info reset">
+			<div class="alert alert-info reset alert-background">
                  <strong class="rem">REMINDERS</strong>
             </div>
 			<p class={this.state.showAddBtn ? 'add' : 'add hide'}>

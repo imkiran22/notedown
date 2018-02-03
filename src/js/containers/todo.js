@@ -13,7 +13,7 @@ export default class Todo extends React.Component {
 	render() {
 		return (
            <section class="todo module">
-              <div class="alert alert-info reset">
+              <div class="alert alert-info reset alert-background">
                  <strong class="rem">TODO</strong>
               </div>
             </section>

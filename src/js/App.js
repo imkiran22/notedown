@@ -71,7 +71,7 @@ export default class App extends React.Component {
      sideNav.className = sideNav.className.replace('width0', '');
      mainView.className = mainView.className.replace('left0', '');
      anchor.removeClass('reset');
-     mainView.style.width = '85%';
+     mainView.style.width = '93%';
      //collapseBtn.style.display = 'none';
    }
 
@@ -127,12 +127,12 @@ export default class App extends React.Component {
         <Alert/>
         <Audio/>
         <section class="side-nav">
-           <a id="show" class="pull-right" onClick={this.collapse.bind(this, this.state.expand ? false : true)}><i class={this.state.expand ? "fa fa-expand whiteI" : "fa fa-window-close whiteI"}></i></a>
+           <a id="show" class="pull-right" onClick={this.collapse.bind(this, this.state.expand ? false : true)}><i class={this.state.expand ? "fa fa-arrow-circle-right whiteI" : "fa fa-arrow-circle-left whiteI"}></i></a>
            <nav>
-            <Link to="/notes">Notes</Link>
-            <Link to="/reminders">Reminders</Link>
-            <Link to="/status">Status</Link>
-            <Link to="/todo">Todo</Link>
+            <Link to="/notes"><i class="fa fa-sticky-note"></i>Notes</Link>
+            <Link to="/reminders"><i class="fa fa-clock-o"></i>Reminders</Link>
+            <Link to="/status"><i class="fa fa-strikethrough"></i>Status</Link>
+            <Link to="/todo"><i class="fa fa-hand-o-right"></i>Todo</Link>
           </nav>
         </section>
         <section class="main-view">

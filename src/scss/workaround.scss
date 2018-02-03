@@ -69,3 +69,8 @@ div.well a {
 audio {
   display: none !important;
 }
+
+.alert-background {
+  background-color: $side-nav !important;
+  border-bottom: 2px double $twitter-blue !important;
+}

@@ -13,7 +13,7 @@ export default class Status extends React.Component {
 	render() {
 		return (
 			<section class="status">
-           <div class="alert alert-info reset">
+           <div class="alert alert-info reset alert-background">
                  <strong class="rem">STATUS</strong>
             </div>
             </section>
